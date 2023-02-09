@@ -14,7 +14,7 @@ class Author(models.Model):
         verbose_name_plural = 'Авторы'
 
     def __str__(self):
-        return f'Категория: {self.name}'
+        return f'Автор: {self.name}'
 
 
 class Album(models.Model):
@@ -78,4 +78,4 @@ class AlbumSong(models.Model):
         verbose_name_plural = 'Альбомы и песни'
 
     def __str__(self):
-        return f'Альбом: {self.album} Песня: {self.song}'
+        return f'{self.album} {self.song}'
