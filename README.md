@@ -40,7 +40,7 @@ pip install -r requirements.txt
 Выполнить миграции:
 
 ```
-cd music-library
+cd MusicLibrary
 ```
 
 ```
