@@ -24,7 +24,7 @@ docker build . -t docker-music-library
 docker run -p 8000:8000 docker-music-library
 ```
 
-Доступ в админку
+Доступ в админку, базу данных специально сохранил с примерами.
 
 http://localhost:8000/admin
 
@@ -72,20 +72,6 @@ pip install -r requirements.txt
 ```
 cd MusicLibrary
 ```
-
-```
-python3 manage.py migrate
-```
-
-Загрузить данные из csv:
-
-
-Создать супер пользователя:
-
-```
-python manage.py createsuperuser
-```
-
 
 Запустить проект:
 
