@@ -1,12 +1,12 @@
 from rest_framework import viewsets
 
-from library.models import Author, Album, Song
-from .serializers import AuthorSerialiser, AlbumSerialiser, SongSerialiser
+from library.models import Artist, Album, Song
+from .serializers import ArtistSerialiser, AlbumSerialiser, SongSerialiser
 
 
-class AuthorViewSet(viewsets.ModelViewSet):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerialiser
+class ArtistViewSet(viewsets.ModelViewSet):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerialiser
 
 
 class AlbumViewSet(viewsets.ModelViewSet):

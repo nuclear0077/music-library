@@ -2,19 +2,21 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-class Author(models.Model):
+class Artist(models.Model):
     name = models.CharField(
         max_length=256,
-        verbose_name='Имя Автора',
-        unique=True
+        verbose_name='Имя артиста'
+    )
+    slug = models.SlugField(
+        unique=True,
     )
 
     class Meta:
-        verbose_name = 'Автор'
-        verbose_name_plural = 'Авторы'
+        verbose_name = 'Артист'
+        verbose_name_plural = 'Артисты'
 
     def __str__(self):
-        return f'Автор: {self.name}'
+        return f'Артист: {self.name}'
 
 
 class Album(models.Model):
@@ -23,16 +25,18 @@ class Album(models.Model):
         verbose_name='Название альбома',
         unique=True
     )
-
-    author = models.ForeignKey(
-        Author,
-        related_name='author',
+    slug = models.SlugField(
+        unique=True,
+    )
+    artist = models.ForeignKey(
+        Artist,
+        related_name='artist',
         blank=True,
         null=True,
         on_delete=models.CASCADE,
         verbose_name='Автор Альбома')
 
-    year = models.PositiveSmallIntegerField(
+    release_year = models.PositiveSmallIntegerField(
         verbose_name='Год выпуска альбома',
         validators=[MinValueValidator(1890), MaxValueValidator(2199)]
     )
@@ -42,7 +46,7 @@ class Album(models.Model):
         verbose_name_plural = 'Альбомы'
         constraints = [
             models.UniqueConstraint(
-                fields=('name', 'author',),
+                fields=('name', 'artist',),
                 name='unique album'
             )]
 
@@ -54,9 +58,8 @@ class Song(models.Model):
     name = models.CharField(
         max_length=256,
         verbose_name='Название песни',
-        unique=True
     )
-    number = models.PositiveSmallIntegerField(
+    track_number = models.PositiveSmallIntegerField(
         verbose_name='Порядковый номер песни в альбоме'
     )
     album = models.ManyToManyField(Album, through='AlbumSong')
@@ -64,6 +67,11 @@ class Song(models.Model):
     class Meta:
         verbose_name = 'Песня'
         verbose_name_plural = 'Песни'
+        constraints = [
+            models.UniqueConstraint(
+                fields=('name', 'track_number',),
+                name='unique name_track_number'
+            )]
 
     def __str__(self):
         return f'Песня: {self.name}'
